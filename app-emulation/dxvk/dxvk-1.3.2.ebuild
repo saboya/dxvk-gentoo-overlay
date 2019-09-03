@@ -34,6 +34,10 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	dev-util/glslang"
 
+PATCHES=(
+	"${FILESDIR}/wine-4.15-build-workaround.patch"
+)
+
 bits() { [[ ${ABI} = amd64 ]] && echo 64 || echo 32; }
 
 dxvk_check_requirements() {

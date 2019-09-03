@@ -1,0 +1,40 @@
+From 5ea5d2a81660480ba553b8b98e8682dfc0153d20 Mon Sep 17 00:00:00 2001
+From: Philip Rebohle <philip.rebohle@tu-dortmund.de>
+Date: Sun, 1 Sep 2019 14:22:34 +0200
+Subject: [PATCH] [meta] Work around wine 4.15 build failure
+
+Wine bug report: https://bugs.winehq.org/show_bug.cgi?id=47710
+We should probably revisit this with the next wine release.
+
+Closes #1179.
+---
+ build-wine32.txt | 2 +-
+ build-wine64.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/build-wine32.txt b/build-wine32.txt
+index 4b830f7e..db9d069c 100644
+--- a/build-wine32.txt
++++ b/build-wine32.txt
+@@ -8,7 +8,7 @@ strip = 'strip'
+ needs_exe_wrapper = true
+ 
+ c_args=['-m32', '-msse', '-msse2', '-fvisibility=hidden']
+-cpp_args=['-m32', '--no-gnu-unique', '-msse', '-msse2', '-fvisibility=hidden', '-fvisibility-inlines-hidden']
++cpp_args=['-m32', '--no-gnu-unique', '-msse', '-msse2', '-fvisibility=hidden', '-fvisibility-inlines-hidden', '-D__WIDL_objidl_generated_name_0000000C=']
+ cpp_link_args=['-m32', '-mwindows']
+ 
+ [host_machine]
+diff --git a/build-wine64.txt b/build-wine64.txt
+index 09b1c38b..0809caec 100644
+--- a/build-wine64.txt
++++ b/build-wine64.txt
+@@ -8,7 +8,7 @@ strip = 'strip'
+ needs_exe_wrapper = true
+ 
+ c_args=['-m64', '-fvisibility=hidden']
+-cpp_args=['-m64', '--no-gnu-unique', '-fvisibility=hidden', '-fvisibility-inlines-hidden']
++cpp_args=['-m64', '--no-gnu-unique', '-fvisibility=hidden', '-fvisibility-inlines-hidden', '-D__WIDL_objidl_generated_name_0000000C=']
+ cpp_link_args=['-m64', '-mwindows']
+ 
+ [host_machine]
